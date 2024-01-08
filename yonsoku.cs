@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 
 namespace _34_makibuchi
 {
+/*関数名:素子直並列表示
+         Resistance/Lindactance/Capasitance Tyokuretu/Heiretu Tyokkakuzahyou/Kyokuzahyou
+ */
+
     public partial class yonsoku : Form1
     {
         public Seisei Seisei=new Seisei();
         public int Ans;
+        public float AnsF;
         public yonsoku()
         {
             InitializeComponent();
@@ -18,17 +25,17 @@ namespace _34_makibuchi
         private void button1_Click(object sender, EventArgs e)
         {
             
-            if (radioButton1.Checked == true)
+            if (radioButton1.Checked == true && radioButton10.Checked == true && radioButton11.Checked == true)
             {
-                label1.Text = Seisei.Wa().siki;
-                Ans = Seisei.A.Answer;
+                label1.Text = Seisei.RTT().siki;
+                Ans = Seisei.RTT().Answer;
                 
-            }else if (radioButton2.Checked == true)
+            }else if (radioButton1.Checked == true && radioButton9.Checked == true && radioButton11.Checked == true)
             {
-                label1.Text = Seisei.Sa().siki;
-                Ans = Seisei.Sa().Answer;
+                label1.Text = Seisei.RHT().siki;
+                AnsF = Seisei.RHT().AnswerF;
             }
-            else if (radioButton3.Checked == true)
+            /*else if (radioButton3.Checked == true)
             {
                 label1.Text = Seisei.Seki().siki;
                 Ans = Seisei.Seki().Answer;
@@ -42,7 +49,7 @@ namespace _34_makibuchi
             {
                 label1.Text = Seisei.Sa().siki;
                 Ans = Seisei.Sa().Answer;
-            }
+            }*/
             else
             {
                 label1.Text = "問題の種類を選択してください";
@@ -73,7 +80,8 @@ namespace _34_makibuchi
             }
             string TextFull = textBox1.Text;
             string TextHalf = Regex.Replace(TextFull, "[０-９]", m => ((char)(m.Value[0] - '０' + '0')).ToString());
-            if (Convert.ToInt32(TextHalf) == Ans)
+            Debug.WriteLine(TextHalf);
+            if (Convert.ToInt32(TextHalf) == Ans||Convert.ToSingle(TextHalf)==AnsF)
             {
                 label2.Text = "正解";
             }
@@ -82,6 +90,37 @@ namespace _34_makibuchi
                 label2.Text = "不正解";
             }
         }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton7_CheckedChanged(object sender, EventArgs e)
+        {
+            textBox1.Enabled = false;
+            textBox2.Enabled = false;
+            textBox3.Enabled = true;
+            textBox4.Enabled = true;
+            label3.Enabled = false;
+            label4.Enabled = false;
+            label6.Enabled = true;
+            label5.Enabled = true;
+            label8.Enabled = true;
+        }
+
+        private void radioButton11_CheckedChanged(object sender, EventArgs e)
+        {
+            textBox1.Enabled = true;
+            textBox2.Enabled = true;
+            textBox3.Enabled = false;
+            textBox4.Enabled = false;
+            label3.Enabled = true;
+            label4.Enabled = true;
+            label6.Enabled = false;
+            label5.Enabled = false;
+            label8.Enabled = false;
+        }
     }
 
     public class Seisei
@@ -89,6 +128,7 @@ namespace _34_makibuchi
         public struct ANSWER
         {
            public  int Answer;
+           public float AnswerF;
            public  string siki;
         }
         public int a, b;
@@ -99,15 +139,18 @@ namespace _34_makibuchi
         public void Atai()
         {
             Random random = new Random();
-            a = random.Next(100);
-            b = random.Next(100);
+            a_string = "";
+            b_string = "";
+            a = random.Next(1,100);
+            b = random.Next(1,100);
             a_string = Convert.ToString(a);
             b_string = Convert.ToString(b);
         }
-        public ANSWER Wa()
+        public ANSWER RTT()
         {
             Atai();
-            A.siki = "(式)" + a_string + "+" + b_string;
+            ANSWER A = new ANSWER();
+            A.siki = a_string + "Ωと" + b_string + "Ωを直列につないだ時の合成インピーダンスを求めよ。";
             Ans = a + b;
             A.Answer = Check(Ans);
             if (Check(Ans) != -999999999)
@@ -117,59 +160,19 @@ namespace _34_makibuchi
             else
             {
                 Atai();
-                return Wa();
+                return RTT();
             }
         }
-        public ANSWER Sa()
+        
+        
+        public ANSWER RHT()
         {
             Atai();
             ANSWER A = new ANSWER();
-            A.siki = "(式)" + a_string + "-" + b_string;
-            Ans = a - b;
-            A.Answer = Check(Ans);
-            if (Check(Ans) != -999999999)
-            {
-                return A;
-            }
-            else
-            {
-                Atai();
-                return Sa();
-            }
-        }
-        public ANSWER Seki()
-        {
-            Atai();
-            ANSWER A = new ANSWER();
-            A.siki = "(式)" + a_string + "x" + b_string;
-            Ans = a * b;
-            A.Answer = Check(Ans);
-            if (Check(Ans) != -999999999)
-            {
-                return A;
-            }
-            else
-            {
-                Atai();
-                return Seki();
-            }
-        }
-        public ANSWER Syou()
-        {
-            Atai();
-            ANSWER A = new ANSWER();
-            A.siki = "(式)" + a_string + "÷" + b_string;
-            Ans = a / b;
-            A.Answer = Check(Ans);
-            if (Check(Ans) != -999999999)
-            {
-                return A;
-            }
-            else
-            {
-                Atai();
-                return Syou();
-            }
+            A.siki = a_string + "Ωと" + b_string + "Ωを並列につないだ時の合成インピーダンスを求めよ。";
+            A.AnswerF= (float)Math.Round((float)Math.Pow((1/a)+(1/b), -1),2,MidpointRounding.AwayFromZero);
+            A.Answer = 0;
+            return A;
         }
         public int Check(float d)
         {
