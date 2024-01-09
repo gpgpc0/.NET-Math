@@ -13,8 +13,8 @@ namespace _34_makibuchi
     public partial class yonsoku : Form1
     {
         public Seisei Seisei=new Seisei();
-        public int Ans;
-        public float AnsF;
+        public int Ans=0;
+        public float AnsF=0;
         public yonsoku()
         {
             InitializeComponent();
@@ -29,11 +29,13 @@ namespace _34_makibuchi
             {
                 label1.Text = Seisei.RTT().siki;
                 Ans = Seisei.RTT().Answer;
+                AnsF = -999;
                 
             }else if (radioButton1.Checked == true && radioButton9.Checked == true && radioButton11.Checked == true)
             {
                 label1.Text = Seisei.RHT().siki;
                 AnsF = Seisei.RHT().AnswerF;
+                Debug.WriteLine(AnsF);
             }
             /*else if (radioButton3.Checked == true)
             {
@@ -65,6 +67,7 @@ namespace _34_makibuchi
         private void hantei()
         {
             unf = false;
+            double check = 0;
             try
             {
                 Convert.ToSingle(textBox1.Text);
@@ -80,15 +83,34 @@ namespace _34_makibuchi
             }
             string TextFull = textBox1.Text;
             string TextHalf = Regex.Replace(TextFull, "[０-９]", m => ((char)(m.Value[0] - '０' + '0')).ToString());
-            Debug.WriteLine(TextHalf);
-            if (Convert.ToInt32(TextHalf) == Ans||Convert.ToSingle(TextHalf)==AnsF)
+            if (double.TryParse(TextHalf, out check))
             {
-                label2.Text = "正解";
-            }
-            else
-            {
-                label2.Text = "不正解";
-            }
+                if (check == AnsF)
+                {
+                    label2.Text = "正解";
+                    return;
+                }
+                else if (AnsF == -999)
+                {
+                     if(Convert.ToInt32(check) == Ans)
+                    {
+                        label2.Text = "正解";
+                        return;
+                    }
+                    else
+                    {
+                        label2.Text = "不正解";
+                        Debug.WriteLine("banana");
+                        return;
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine("asdfs");
+                    label2.Text = "不正解";
+                    return;
+                }
+            }               
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -153,6 +175,7 @@ namespace _34_makibuchi
             A.siki = a_string + "Ωと" + b_string + "Ωを直列につないだ時の合成インピーダンスを求めよ。";
             Ans = a + b;
             A.Answer = Check(Ans);
+            A.AnswerF = 0;
             if (Check(Ans) != -999999999)
             {
                 return A;
@@ -170,7 +193,11 @@ namespace _34_makibuchi
             Atai();
             ANSWER A = new ANSWER();
             A.siki = a_string + "Ωと" + b_string + "Ωを並列につないだ時の合成インピーダンスを求めよ。";
-            A.AnswerF= (float)Math.Round((float)Math.Pow((1/a)+(1/b), -1),2,MidpointRounding.AwayFromZero);
+            float temp = 1 / ((1 / a) + (1 / b));
+            A.AnswerF= (float)Math.Round(temp,2,MidpointRounding.AwayFromZero);
+            Debug.WriteLine(a);
+            Debug.WriteLine(b);
+            Debug.WriteLine(A.AnswerF);
             A.Answer = 0;
             return A;
         }
