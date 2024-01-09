@@ -193,10 +193,12 @@ namespace _34_makibuchi
             Atai();
             ANSWER A = new ANSWER();
             A.siki = a_string + "Ωと" + b_string + "Ωを並列につないだ時の合成インピーダンスを求めよ。";
-            float temp = 1 / ((1 / a) + (1 / b));
-            A.AnswerF= (float)Math.Round(temp,2,MidpointRounding.AwayFromZero);
             Debug.WriteLine(a);
             Debug.WriteLine(b);
+            double temp = 1 / ((1 / (double)a) + (1 / (double)b));
+            Debug.WriteLine(temp);
+            A.AnswerF= (float)Math.Round(temp,2,MidpointRounding.AwayFromZero);
+            
             Debug.WriteLine(A.AnswerF);
             A.Answer = 0;
             return A;
