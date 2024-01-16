@@ -14,7 +14,57 @@ namespace _34_makibuchi
     {
         public Seisei Seisei=new Seisei();
         public int Ans=0;
-        public float AnsF=0;
+        public double AnsF=0;
+        double check = 0;
+        private void hantei()
+        {
+            unf = false;
+            
+            try
+            {
+                Convert.ToSingle(textBox1.Text);
+            }
+            catch (FormatException)
+            {
+                unf = true;
+            }
+
+            if (unf && (Regex.IsMatch(textBox1.Text, @"^\d+$") == false))
+            {
+                label2.Text = "数字を入力してください";
+                return;
+            }
+            string TextFull = textBox1.Text;
+            string TextHalf = Regex.Replace(TextFull, "[０-９]", m => ((char)(m.Value[0] - '０' + '0')).ToString());
+
+            check = Convert.ToDouble(TextHalf);
+
+            if (check == AnsF)
+            {
+                label2.Text = "正解";
+                return;
+            }
+            else if (AnsF == -999)
+            {
+                if (Convert.ToInt32(check) == Ans)
+                {
+                    label2.Text = "正解";
+                    return;
+                }
+                else
+                {
+                    label2.Text = "不正解";
+                    Debug.WriteLine("banana");
+                    return;
+                }
+            }
+            else
+            {
+                Debug.WriteLine("asdfs");
+                label2.Text = "不正解";
+                return;
+            }
+        }
         public yonsoku()
         {
             InitializeComponent();
@@ -27,15 +77,16 @@ namespace _34_makibuchi
             
             if (radioButton1.Checked == true && radioButton10.Checked == true && radioButton11.Checked == true)
             {
-                label1.Text = Seisei.RTT().siki;
-                Ans = Seisei.RTT().Answer;
+                Seisei.ANSWER result = Seisei.RTT();
+                label1.Text = result.siki;
+                Ans = result.Answer;
                 AnsF = -999;
                 
             }else if (radioButton1.Checked == true && radioButton9.Checked == true && radioButton11.Checked == true)
             {
-                label1.Text = Seisei.RHT().siki;
-                AnsF = Seisei.RHT().AnswerF;
-                Debug.WriteLine(AnsF);
+                Seisei.ANSWER result = Seisei.RHT();
+                label1.Text =result.siki;
+                AnsF = result.AnswerF;
             }
             /*else if (radioButton3.Checked == true)
             {
@@ -64,54 +115,7 @@ namespace _34_makibuchi
         }
 
         protected bool unf;
-        private void hantei()
-        {
-            unf = false;
-            double check = 0;
-            try
-            {
-                Convert.ToSingle(textBox1.Text);
-            }catch (FormatException)
-            {
-                unf = true;
-            }
-            
-            if (unf&&(Regex.IsMatch(textBox1.Text, @"^\d+$") == false))
-            {
-                label2.Text = "数字を入力してください";
-                return;
-            }
-            string TextFull = textBox1.Text;
-            string TextHalf = Regex.Replace(TextFull, "[０-９]", m => ((char)(m.Value[0] - '０' + '0')).ToString());
-            if (double.TryParse(TextHalf, out check))
-            {
-                if (check == AnsF)
-                {
-                    label2.Text = "正解";
-                    return;
-                }
-                else if (AnsF == -999)
-                {
-                     if(Convert.ToInt32(check) == Ans)
-                    {
-                        label2.Text = "正解";
-                        return;
-                    }
-                    else
-                    {
-                        label2.Text = "不正解";
-                        Debug.WriteLine("banana");
-                        return;
-                    }
-                }
-                else
-                {
-                    Debug.WriteLine("asdfs");
-                    label2.Text = "不正解";
-                    return;
-                }
-            }               
-        }
+       
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
@@ -150,21 +154,25 @@ namespace _34_makibuchi
         public struct ANSWER
         {
            public  int Answer;
-           public float AnswerF;
+           public double AnswerF;
            public  string siki;
+           public double L;
+           public double C;
         }
-        public int a, b;
-        public float Ans;
-        public ANSWER A = new ANSWER();
-
-        public string a_string, b_string;
+        private int a, b, c, omega;
+        private double Ans;
+        private ANSWER A = new ANSWER();
+        private string a_string, b_string,omega_string;
         public void Atai()
         {
             Random random = new Random();
             a_string = "";
             b_string = "";
+            omega_string = "";
             a = random.Next(1,100);
             b = random.Next(1,100);
+            c = random.Next(1, 100);
+            omega = random.Next(1, 100);
             a_string = Convert.ToString(a);
             b_string = Convert.ToString(b);
         }
@@ -193,17 +201,16 @@ namespace _34_makibuchi
             Atai();
             ANSWER A = new ANSWER();
             A.siki = a_string + "Ωと" + b_string + "Ωを並列につないだ時の合成インピーダンスを求めよ。";
-            Debug.WriteLine(a);
-            Debug.WriteLine(b);
             double temp = 1 / ((1 / (double)a) + (1 / (double)b));
-            Debug.WriteLine(temp);
-            A.AnswerF= (float)Math.Round(temp,2,MidpointRounding.AwayFromZero);
-            
-            Debug.WriteLine(A.AnswerF);
+            A.AnswerF= (double)Math.Round(temp,2,MidpointRounding.AwayFromZero);
             A.Answer = 0;
             return A;
         }
-        public int Check(float d)
+        public ANSWER RLCTK()
+        {
+
+        }
+        public int Check(double d)
         {
             if ((int)d == d)
             {
@@ -214,5 +221,6 @@ namespace _34_makibuchi
                 return -999999999;
             }
         }
+
     }
 }
