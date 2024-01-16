@@ -208,7 +208,9 @@ namespace _34_makibuchi
         }
         public ANSWER RLCTK()
         {
-
+            Atai();
+            ANSWER A = new ANSWER();
+            return A;
         }
         public int Check(double d)
         {
