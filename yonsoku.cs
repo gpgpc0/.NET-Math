@@ -162,12 +162,13 @@ namespace _34_makibuchi
         private int a, b, c, omega;
         private double Ans;
         private ANSWER A = new ANSWER();
-        private string a_string, b_string,omega_string;
+        private string a_string, b_string, c_string, omega_string;
         public void Atai()
         {
             Random random = new Random();
             a_string = "";
             b_string = "";
+            c_string = "";
             omega_string = "";
             a = random.Next(1,100);
             b = random.Next(1,100);
@@ -175,6 +176,8 @@ namespace _34_makibuchi
             omega = random.Next(1, 100);
             a_string = Convert.ToString(a);
             b_string = Convert.ToString(b);
+            c_string = Convert.ToString(c);
+            omega_string = Convert.ToString(omega);
         }
         public ANSWER RTT()
         {
@@ -210,6 +213,7 @@ namespace _34_makibuchi
         {
             Atai();
             ANSWER A = new ANSWER();
+            A.siki = "各周波数が" + omega_string + "rad/sであるとき" + a_string + "の抵抗、" + b_string + "の誘導性の素子";
             return A;
         }
         public int Check(double d)
