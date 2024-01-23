@@ -88,11 +88,11 @@ namespace _34_makibuchi
                 label1.Text =result.siki;
                 AnsF = result.AnswerF;
             }
-            /*else if (radioButton3.Checked == true)
+            else if (radioButton5.Checked == true&&radioButton10.Checked==true&&radioButton11.Checked==true)
             {
-                label1.Text = Seisei.Seki().siki;
-                Ans = Seisei.Seki().Answer;
-            }
+                Seisei.RLCTT(0);
+
+            }/*
             else if (radioButton4.Checked == true)
             {
                 label1.Text = Seisei.Syou().siki;
@@ -209,11 +209,29 @@ namespace _34_makibuchi
             A.Answer = 0;
             return A;
         }
-        public ANSWER RLCTK()
+        public void RLCTT(int flag)
         {
+            double temp = 0;
             Atai();
+
+            if (flag == 0)
+            {
+                temp = 0;
+                RLCTK(temp);
+            }
+            else
+            {
+                
+                RLCTK(temp);
+            }
+
+
+        }
+        public ANSWER RLCTK(double temp)
+        {
             ANSWER A = new ANSWER();
-            A.siki = "各周波数が" + omega_string + "rad/sであるとき" + a_string + "の抵抗、" + b_string + "の誘導性の素子";
+            A.siki = "角周波数が" + omega_string + "rad/sであるとき" + a_string + "の抵抗、" + b_string + "の誘導性の素子と、" + c_string + "の容量性の素子を直列につないだ。この時の合成インピーダンスを求めよ。";
+            
             return A;
         }
         public int Check(double d)
