@@ -183,7 +183,7 @@ namespace _34_makibuchi
            public  string siki;
            public double J;
         }
-        private int a, b, c, omega;
+        private double a, b, c, omega;
         private double Ans;
         private ANSWER A = new ANSWER();
         private string a_string, b_string, c_string, omega_string;
@@ -238,7 +238,9 @@ namespace _34_makibuchi
             double tempR = 0;
             ANSWER A = new ANSWER();
             Atai();
-            A.siki = "角周波数が" + omega_string + "rad/sであるとき" + a_string + "の抵抗、" + b_string + "の誘導性の素子と、" + c_string + "の容量性の素子を直列につないだ。この時の合成インピーダンスを求めよ。";
+            A.siki = "角周波数が" + omega_string + "rad/sであるとき" + a_string + "の抵抗、" + b_string + "mの誘導性の素子と、" + c_string + "μの容量性の素子を直列につないだ。この時の合成インピーダンスを求めよ。";
+            b *= 0.001;
+            c *= 0.000001;
             tempR = a;
             double tempI = b * omega + c * omega;
             if (flag == 0)
