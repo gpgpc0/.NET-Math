@@ -14,8 +14,8 @@ namespace _34_makibuchi
     {
         public Seisei Seisei=new Seisei();
         public int Ans=0;
-        public double AnsF=0;
-        double check = 0;
+        public double AnsF=0,Sheeta=0,AnsI;
+        double[] check = { 0, 0, 0, 0 };
         private void hantei()
         {
             unf = false;
@@ -23,23 +23,32 @@ namespace _34_makibuchi
             try
             {
                 Convert.ToSingle(textBox1.Text);
+                Convert.ToSingle(textBox2.Text);
+                Convert.ToSingle(textBox3.Text);
+                Convert.ToSingle(textBox4.Text);
             }
             catch (FormatException)
             {
                 unf = true;
             }
 
-            if (unf && (Regex.IsMatch(textBox1.Text, @"^\d+$") == false))
+            if (unf && ((Regex.IsMatch(textBox1.Text, @"^\d+$") == false)|| (Regex.IsMatch(textBox2.Text, @"^\d+$") == false)|| (Regex.IsMatch(textBox3.Text, @"^\d+$") == false)|| (Regex.IsMatch(textBox4.Text, @"^\d+$") == false)))
             {
                 label2.Text = "数字を入力してください";
                 return;
             }
-            string TextFull = textBox1.Text;
-            string TextHalf = Regex.Replace(TextFull, "[０-９]", m => ((char)(m.Value[0] - '０' + '0')).ToString());
-
-            check = Convert.ToDouble(TextHalf);
-
-            if (check == AnsF)
+            string[] TextFull = new string[4], TextHalf = new string[4];
+            TextFull[0] = textBox1.Text;
+            TextHalf[0] = Regex.Replace(TextFull[0], "[０-９]", m => ((char)(m.Value[0] - '０' + '0')).ToString());
+            TextFull[1] = textBox2.Text;
+            TextHalf[1] = Regex.Replace(TextFull[1], "[０-９]", m => ((char)(m.Value[0] - '０' + '0')).ToString());
+            TextFull[2] = textBox3.Text;
+            TextHalf[2] = Regex.Replace(TextFull[2], "[０-９]", m => ((char)(m.Value[0] - '０' + '0')).ToString());
+            TextFull[3] = textBox4.Text;
+            TextHalf[3] = Regex.Replace(TextFull[3], "[０-９]", m => ((char)(m.Value[0] - '０' + '0')).ToString());
+            for (int i = 0; i < 4; i++)check[i] = Convert.ToDouble(TextHalf[i]);
+           
+            if ((check[0] == AnsF&&check[1]==AnsI)||(check[2]==AnsF&&check[4]==Sheeta))
             {
                 label2.Text = "正解";
                 return;
@@ -90,14 +99,16 @@ namespace _34_makibuchi
             }
             else if (radioButton5.Checked == true&&radioButton10.Checked==true&&radioButton11.Checked==true)
             {
-                Seisei.RLCTT(0);
+                Seisei.ANSWER result = Seisei.RLCTT(0);
+                label1.Text = result.siki;
+                
+            }
+            else if (radioButton5.Checked == true&&radioButton10.Checked==true&&radioButton7.Checked==true)
+            {
+                Seisei.ANSWER result = Seisei.RLCTT(1);
+                label1.Text = result.siki;
 
             }/*
-            else if (radioButton4.Checked == true)
-            {
-                label1.Text = Seisei.Syou().siki;
-                Ans = Seisei.Syou().Answer;
-            }
             else if (radioButton5.Checked == true)
             {
                 label1.Text = Seisei.Sa().siki;
@@ -120,6 +131,20 @@ namespace _34_makibuchi
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void yonsoku_Load(object sender, EventArgs e)
+        {
+            radioButton2.Enabled = false;
+            radioButton3.Enabled = false;
+            radioButton4.Enabled = false;
+            radioButton8.Enabled = false;
+            radioButton12.Enabled = false;
+            radioButton13.Enabled = false;
+            textBox1.Text = "0";
+            textBox2.Text = "0";
+            textBox3.Text = "0";
+            textBox4.Text = "0";
         }
 
         private void radioButton7_CheckedChanged(object sender, EventArgs e)
@@ -156,8 +181,7 @@ namespace _34_makibuchi
            public  int Answer;
            public double AnswerF;
            public  string siki;
-           public double L;
-           public double C;
+           public double J;
         }
         private int a, b, c, omega;
         private double Ans;
@@ -209,30 +233,33 @@ namespace _34_makibuchi
             A.Answer = 0;
             return A;
         }
-        public void RLCTT(int flag)
+        public ANSWER RLCTT(int flag)
         {
-            double temp = 0;
+            double tempR = 0;
+            ANSWER A = new ANSWER();
             Atai();
-
+            A.siki = "角周波数が" + omega_string + "rad/sであるとき" + a_string + "の抵抗、" + b_string + "の誘導性の素子と、" + c_string + "の容量性の素子を直列につないだ。この時の合成インピーダンスを求めよ。";
+            tempR = a;
+            double tempI = b * omega + c * omega;
             if (flag == 0)
             {
-                temp = 0;
-                RLCTK(temp);
+                A.AnswerF = tempR;
+                A.J = tempI;
+                return A;
             }
             else
             {
-                
-                RLCTK(temp);
+                A.AnswerF = CheckK(tempR, tempI);
+                A.J=Math.Sqrt(tempR * tempR + tempI * tempI);
+                if (A.J == -999999999)
+                {
+                    return RLCTT(flag);
+                }
+                else
+                {
+                    return A;
+                }
             }
-
-
-        }
-        public ANSWER RLCTK(double temp)
-        {
-            ANSWER A = new ANSWER();
-            A.siki = "角周波数が" + omega_string + "rad/sであるとき" + a_string + "の抵抗、" + b_string + "の誘導性の素子と、" + c_string + "の容量性の素子を直列につないだ。この時の合成インピーダンスを求めよ。";
-            
-            return A;
         }
         public int Check(double d)
         {
@@ -245,6 +272,18 @@ namespace _34_makibuchi
                 return -999999999;
             }
         }
+        public double CheckK(double Re,double Im)
+        {
+            double a = Math.Atan2(Im, Re);
+            if ((int)a == a)
+            {
+                return a;
+            }
+            else
+            {
+                return -999999999;
+            }
+        } 
 
     }
 }
