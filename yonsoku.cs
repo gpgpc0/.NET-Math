@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
-
+using System.Text.Json;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 namespace _34_makibuchi
 {
 /*関数名:素子直並列表示
@@ -48,14 +51,14 @@ namespace _34_makibuchi
             TextHalf[3] = Regex.Replace(TextFull[3], "[０-９]", m => ((char)(m.Value[0] - '０' + '0')).ToString());
             for (int i = 0; i < 4; i++)check[i] = Convert.ToDouble(TextHalf[i]);
            
-            if ((check[0] == AnsF&&check[1]==AnsI)||(check[2]==AnsF&&check[4]==Sheeta))
+            if ((check[0] == AnsF&&check[1]==AnsI)||(check[2]==AnsF&&check[3]==Sheeta))
             {
                 label2.Text = "正解";
                 return;
             }
             else if (AnsF == -999)
             {
-                if (Convert.ToInt32(check) == Ans)
+                if (Convert.ToInt32(check[0]) == Ans)
                 {
                     label2.Text = "正解";
                     return;
@@ -63,13 +66,13 @@ namespace _34_makibuchi
                 else
                 {
                     label2.Text = "不正解";
-                    Debug.WriteLine("banana");
+                    Debug.WriteLine("banana"+AnsF);
                     return;
                 }
             }
             else
             {
-                Debug.WriteLine("asdfs");
+                Debug.WriteLine("asdfs"+AnsF+" "+AnsI) ;
                 label2.Text = "不正解";
                 return;
             }
@@ -101,12 +104,15 @@ namespace _34_makibuchi
             {
                 Seisei.ANSWER result = Seisei.RLCTT(0);
                 label1.Text = result.siki;
-                
+                AnsF = result.AnswerF;
+                AnsI = result.J;
             }
             else if (radioButton5.Checked == true&&radioButton10.Checked==true&&radioButton7.Checked==true)
             {
                 Seisei.ANSWER result = Seisei.RLCTT(1);
                 label1.Text = result.siki;
+                AnsF = result.AnswerF;
+                Sheeta = result.J;
 
             }/*
             else if (radioButton5.Checked == true)
@@ -147,6 +153,11 @@ namespace _34_makibuchi
             textBox4.Text = "0";
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void radioButton7_CheckedChanged(object sender, EventArgs e)
         {
             textBox1.Enabled = false;
@@ -183,7 +194,7 @@ namespace _34_makibuchi
            public  string siki;
            public double J;
         }
-        private double a, b, c, omega;
+        public double a, b, c, omega;
         private double Ans;
         private ANSWER A = new ANSWER();
         private string a_string, b_string, c_string, omega_string;
@@ -238,21 +249,21 @@ namespace _34_makibuchi
             double tempR = 0;
             ANSWER A = new ANSWER();
             Atai();
-            A.siki = "角周波数が" + omega_string + "rad/sであるとき" + a_string + "の抵抗、" + b_string + "mの誘導性の素子と、" + c_string + "μの容量性の素子を直列につないだ。この時の合成インピーダンスを求めよ。";
+            A.siki = "角周波数が" + omega_string + "rad/sであるとき" + a_string + "の抵抗、" + b_string + "mの誘導性の素子と、" + Environment.NewLine + c_string + "μの容量性の素子を直列につないだ。この時の合成インピーダンスを求めよ。ただし小数点第2位まで求めよ。";
             b *= 0.001;
             c *= 0.000001;
             tempR = a;
-            double tempI = b * omega + c * omega;
+            double tempI = b * omega + 1 / (c * omega);
             if (flag == 0)
             {
                 A.AnswerF = tempR;
-                A.J = tempI;
+                A.J = (double)Math.Round(tempI, 2, MidpointRounding.AwayFromZero);
                 return A;
             }
             else
             {
                 A.AnswerF = CheckK(tempR, tempI);
-                A.J=Math.Sqrt(tempR * tempR + tempI * tempI);
+                A.J = (double)Math.Round(Math.Sqrt(tempR * tempR + tempI * tempI), 2, MidpointRounding.AwayFromZero);
                 if (A.J == -999999999)
                 {
                     return RLCTT(flag);
@@ -286,6 +297,42 @@ namespace _34_makibuchi
                 return -999999999;
             }
         } 
-
+    }
+    /// <summary>
+    /// https://qiita.com/iwasiman/items/57ed8a015859a88f3cb0 より
+    /// </summary>
+    public class JsonUtil : Form1
+    {
+        public static string ToJson(Dictionary<string, double> dict)
+        {
+            var json = JsonSerializer.Serialize(dict, JsonUtil.GetOption());
+            return json;
+        }
+        private static JsonSerializerOptions GetOption()
+        {
+            var options = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+                WriteIndented = true,
+            };
+            return options;
+        }
+        public static Dictionary<string,double> JsonToDict(string json)
+        {
+            if (String.IsNullOrEmpty(json))
+            {
+                return new Dictionary<string, double>();
+            }
+            try
+            {
+                Dictionary<string, double> dict = JsonSerializer.Deserialize<Dictionary<string, double>>(json, JsonUtil.GetOption());
+                return dict;
+            }
+            catch (JsonException e)
+            {
+                Console.WriteLine(e.Message);
+                return new Dictionary<string, double>();
+            }
+        }
     }
 }
