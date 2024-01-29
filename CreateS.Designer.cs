@@ -1,6 +1,6 @@
 ﻿namespace _34_makibuchi
 {
-    partial class Create
+    partial class CreateS
     {
         /// <summary>
         /// Required designer variable.
@@ -56,6 +56,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 22);
             this.textBox1.TabIndex = 2;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // textBox2
             // 
@@ -131,7 +132,7 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "ファイル名";
             // 
-            // Create
+            // CreateS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -148,7 +149,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
-            this.Name = "Create";
+            this.Name = "CreateS";
             this.Text = "問題作成ツール";
             this.Load += new System.EventHandler(this.Create_Load);
             this.Controls.SetChildIndex(this.label1, 0);

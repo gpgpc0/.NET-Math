@@ -98,6 +98,7 @@ namespace _34_makibuchi
             // radioButton13
             // 
             this.radioButton13.AutoSize = true;
+            this.radioButton13.Enabled = false;
             this.radioButton13.Location = new System.Drawing.Point(33, 89);
             this.radioButton13.Margin = new System.Windows.Forms.Padding(4);
             this.radioButton13.Name = "radioButton13";
@@ -110,6 +111,7 @@ namespace _34_makibuchi
             // radioButton12
             // 
             this.radioButton12.AutoSize = true;
+            this.radioButton12.Enabled = false;
             this.radioButton12.Location = new System.Drawing.Point(33, 62);
             this.radioButton12.Margin = new System.Windows.Forms.Padding(4);
             this.radioButton12.Name = "radioButton12";
@@ -134,6 +136,7 @@ namespace _34_makibuchi
             // radioButton3
             // 
             this.radioButton3.AutoSize = true;
+            this.radioButton3.Enabled = false;
             this.radioButton3.Location = new System.Drawing.Point(33, 145);
             this.radioButton3.Margin = new System.Windows.Forms.Padding(4);
             this.radioButton3.Name = "radioButton3";
@@ -146,6 +149,7 @@ namespace _34_makibuchi
             // radioButton4
             // 
             this.radioButton4.AutoSize = true;
+            this.radioButton4.Enabled = false;
             this.radioButton4.Location = new System.Drawing.Point(33, 172);
             this.radioButton4.Margin = new System.Windows.Forms.Padding(4);
             this.radioButton4.Name = "radioButton4";
@@ -158,6 +162,7 @@ namespace _34_makibuchi
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
+            this.radioButton2.Enabled = false;
             this.radioButton2.Location = new System.Drawing.Point(33, 116);
             this.radioButton2.Margin = new System.Windows.Forms.Padding(4);
             this.radioButton2.Name = "radioButton2";
@@ -170,8 +175,7 @@ namespace _34_makibuchi
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.label1.Location = new System.Drawing.Point(299, 59);
+            this.label1.Location = new System.Drawing.Point(439, 41);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(43, 15);
@@ -290,6 +294,7 @@ namespace _34_makibuchi
             // radioButton8
             // 
             this.radioButton8.AutoSize = true;
+            this.radioButton8.Enabled = false;
             this.radioButton8.Location = new System.Drawing.Point(19, 90);
             this.radioButton8.Margin = new System.Windows.Forms.Padding(4);
             this.radioButton8.Name = "radioButton8";

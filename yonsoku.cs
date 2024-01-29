@@ -30,7 +30,7 @@ namespace _34_makibuchi
                 Convert.ToSingle(textBox3.Text);
                 Convert.ToSingle(textBox4.Text);
             }
-            catch (FormatException)
+            catch (FormatException)//変換できるか脳筋チェック
             {
                 unf = true;
             }

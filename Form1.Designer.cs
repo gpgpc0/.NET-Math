@@ -31,16 +31,18 @@ namespace _34_makibuchi
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.データを保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.編集ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ホームへ戻るToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.機能ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.問題作成ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.四則問題ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.自作問題作成ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.作成ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ヘルプToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.データを保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.このソフトについてToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ヘルプToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.四則問題ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.問題作成ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.自作問題作成ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,6 +68,13 @@ namespace _34_makibuchi
             this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(65, 24);
             this.ファイルToolStripMenuItem.Text = "ファイル";
             // 
+            // データを保存ToolStripMenuItem
+            // 
+            this.データを保存ToolStripMenuItem.Name = "データを保存ToolStripMenuItem";
+            this.データを保存ToolStripMenuItem.Size = new System.Drawing.Size(208, 26);
+            this.データを保存ToolStripMenuItem.Text = "現在のデータを保存";
+            this.データを保存ToolStripMenuItem.Click += new System.EventHandler(this.データを保存ToolStripMenuItem_Click);
+            // 
             // 編集ToolStripMenuItem
             // 
             this.編集ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -77,6 +86,7 @@ namespace _34_makibuchi
             // 
             // ホームへ戻るToolStripMenuItem
             // 
+            this.ホームへ戻るToolStripMenuItem.Enabled = false;
             this.ホームへ戻るToolStripMenuItem.Name = "ホームへ戻るToolStripMenuItem";
             this.ホームへ戻るToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
             this.ホームへ戻るToolStripMenuItem.Text = "ホームへ戻る";
@@ -91,6 +101,38 @@ namespace _34_makibuchi
             this.機能ToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.機能ToolStripMenuItem.Text = "機能";
             // 
+            // 問題作成ToolStripMenuItem
+            // 
+            this.問題作成ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.四則問題ToolStripMenuItem});
+            this.問題作成ToolStripMenuItem.Name = "問題作成ToolStripMenuItem";
+            this.問題作成ToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
+            this.問題作成ToolStripMenuItem.Text = "問題生成";
+            this.問題作成ToolStripMenuItem.Click += new System.EventHandler(this.問題作成ToolStripMenuItem_Click);
+            // 
+            // 四則問題ToolStripMenuItem
+            // 
+            this.四則問題ToolStripMenuItem.Name = "四則問題ToolStripMenuItem";
+            this.四則問題ToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
+            this.四則問題ToolStripMenuItem.Text = "電気回路計算";
+            this.四則問題ToolStripMenuItem.Click += new System.EventHandler(this.四則問題ToolStripMenuItem_Click);
+            // 
+            // 自作問題作成ToolStripMenuItem
+            // 
+            this.自作問題作成ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.作成ToolStripMenuItem});
+            this.自作問題作成ToolStripMenuItem.Name = "自作問題作成ToolStripMenuItem";
+            this.自作問題作成ToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
+            this.自作問題作成ToolStripMenuItem.Text = "自作問題作成";
+            this.自作問題作成ToolStripMenuItem.Click += new System.EventHandler(this.自作問題作成ToolStripMenuItem_Click);
+            // 
+            // 作成ToolStripMenuItem
+            // 
+            this.作成ToolStripMenuItem.Name = "作成ToolStripMenuItem";
+            this.作成ToolStripMenuItem.Size = new System.Drawing.Size(122, 26);
+            this.作成ToolStripMenuItem.Text = "作成";
+            this.作成ToolStripMenuItem.Click += new System.EventHandler(this.作成ToolStripMenuItem_Click);
+            // 
             // ヘルプToolStripMenuItem
             // 
             this.ヘルプToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -100,47 +142,19 @@ namespace _34_makibuchi
             this.ヘルプToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
             this.ヘルプToolStripMenuItem.Text = "ヘルプ";
             // 
-            // データを保存ToolStripMenuItem
-            // 
-            this.データを保存ToolStripMenuItem.Name = "データを保存ToolStripMenuItem";
-            this.データを保存ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.データを保存ToolStripMenuItem.Text = "現在のデータを保存";
-            this.データを保存ToolStripMenuItem.Click += new System.EventHandler(this.データを保存ToolStripMenuItem_Click);
-            // 
             // このソフトについてToolStripMenuItem
             // 
             this.このソフトについてToolStripMenuItem.Name = "このソフトについてToolStripMenuItem";
             this.このソフトについてToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.このソフトについてToolStripMenuItem.Text = "このソフトについて";
+            this.このソフトについてToolStripMenuItem.Click += new System.EventHandler(this.このソフトについてToolStripMenuItem_Click);
             // 
             // ヘルプToolStripMenuItem1
             // 
             this.ヘルプToolStripMenuItem1.Name = "ヘルプToolStripMenuItem1";
             this.ヘルプToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
             this.ヘルプToolStripMenuItem1.Text = "ヘルプ";
-            // 
-            // 四則問題ToolStripMenuItem
-            // 
-            this.四則問題ToolStripMenuItem.Name = "四則問題ToolStripMenuItem";
-            this.四則問題ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.四則問題ToolStripMenuItem.Text = "電気回路計算";
-            this.四則問題ToolStripMenuItem.Click += new System.EventHandler(this.四則問題ToolStripMenuItem_Click);
-            // 
-            // 問題作成ToolStripMenuItem
-            // 
-            this.問題作成ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.四則問題ToolStripMenuItem});
-            this.問題作成ToolStripMenuItem.Name = "問題作成ToolStripMenuItem";
-            this.問題作成ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.問題作成ToolStripMenuItem.Text = "問題生成";
-            this.問題作成ToolStripMenuItem.Click += new System.EventHandler(this.問題作成ToolStripMenuItem_Click);
-            // 
-            // 自作問題作成ToolStripMenuItem
-            // 
-            this.自作問題作成ToolStripMenuItem.Name = "自作問題作成ToolStripMenuItem";
-            this.自作問題作成ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.自作問題作成ToolStripMenuItem.Text = "自作問題作成";
-            this.自作問題作成ToolStripMenuItem.Click += new System.EventHandler(this.自作問題作成ToolStripMenuItem_Click);
+            this.ヘルプToolStripMenuItem1.Click += new System.EventHandler(this.ヘルプToolStripMenuItem1_Click);
             // 
             // Form1
             // 
@@ -149,7 +163,7 @@ namespace _34_makibuchi
             this.ClientSize = new System.Drawing.Size(1067, 562);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "電気回路学習";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -174,6 +188,8 @@ namespace _34_makibuchi
         private System.Windows.Forms.ToolStripMenuItem このソフトについてToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ヘルプToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem 自作問題作成ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 作成ToolStripMenuItem;
+        private System.Windows.Forms.HelpProvider helpProvider1;
     }
 }
 

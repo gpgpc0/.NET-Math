@@ -52,6 +52,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
@@ -75,11 +76,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Create.cs">
+    <Compile Include="CreateS.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Create.Designer.cs">
-      <DependentUpon>Create.cs</DependentUpon>
+    <Compile Include="CreateS.Designer.cs">
+      <DependentUpon>CreateS.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -95,8 +96,8 @@
     <Compile Include="yonsoku.Designer.cs">
       <DependentUpon>yonsoku.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Create.resx">
-      <DependentUpon>Create.cs</DependentUpon>
+    <EmbeddedResource Include="CreateS.resx">
+      <DependentUpon>CreateS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
