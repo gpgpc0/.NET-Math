@@ -113,6 +113,9 @@ namespace _34_makibuchi
                 label1.Text = result.siki;
                 AnsF = result.AnswerF;
                 Sheeta = result.J;
+                Debug.WriteLine(AnsF);
+                Debug.WriteLine("aaa");
+                Debug.WriteLine(Sheeta);
 
             }/*
             else if (radioButton5.Checked == true)
@@ -206,9 +209,9 @@ namespace _34_makibuchi
             c_string = "";
             omega_string = "";
             a = random.Next(1,100);
-            b = random.Next(1,100);
-            c = random.Next(1, 100);
-            omega = random.Next(1, 100);
+            b = random.Next(50,100);
+            c = random.Next(50, 100);
+            omega = random.Next(100, 200);
             a_string = Convert.ToString(a);
             b_string = Convert.ToString(b);
             c_string = Convert.ToString(c);
@@ -253,7 +256,7 @@ namespace _34_makibuchi
             b *= 0.001;
             c *= 0.000001;
             tempR = a;
-            double tempI = b * omega + 1 / (c * omega);
+            double tempI = b * omega - 1 / (c * omega);
             if (flag == 0)
             {
                 A.AnswerF = tempR;
@@ -262,10 +265,11 @@ namespace _34_makibuchi
             }
             else
             {
-                A.AnswerF = CheckK(tempR, tempI);
-                A.J = (double)Math.Round(Math.Sqrt(tempR * tempR + tempI * tempI), 2, MidpointRounding.AwayFromZero);
+                A.AnswerF = (double)Math.Round(Math.Sqrt(tempR * tempR + tempI * tempI), 2, MidpointRounding.AwayFromZero);
+                A.J = CheckK(tempR, tempI);
                 if (A.J == -999999999)
                 {
+                    Atai();
                     return RLCTT(flag);
                 }
                 else
@@ -287,10 +291,10 @@ namespace _34_makibuchi
         }
         public double CheckK(double Re,double Im)
         {
-            double a = Math.Atan2(Im, Re);
-            if ((int)a == a)
+            double a = Math.Atan(Im/Re) * 180 / Math.PI;
+            if (a>=-70&&a<=70)
             {
-                return a;
+                return Math.Round(a, 2, MidpointRounding.AwayFromZero);
             }
             else
             {
