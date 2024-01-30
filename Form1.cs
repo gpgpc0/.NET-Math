@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace _34_makibuchi
 {
@@ -113,7 +114,7 @@ namespace _34_makibuchi
 
         private void データを保存ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.Equals(y))
+            if (this.Equals(y)&&!((Regex.IsMatch(y.textBox1.Text, @"^\d+$") == false) || (Regex.IsMatch(y.textBox2.Text, @"^\d+$") == false) || (Regex.IsMatch(y.textBox3.Text, @"^\d+$") == false) || (Regex.IsMatch(y.textBox4.Text, @"^\d+$") == false)))
             {
                 var dict1 = new Dictionary<string, double>
                 {
